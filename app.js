@@ -1,12 +1,20 @@
 // 1. 导包express
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session')
+var session = require('express-session')
 
 const router = require('./router');
 
 // 2. 实例化app
 const app = express();
+
+
+// 配置express-session包
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+}));
 
 // 配置包
 // 模板引擎

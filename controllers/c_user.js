@@ -1,26 +1,29 @@
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'nodexiangmu'
-});
-connection.connect();
 
-showSignin = (req,res) => {
+// 导入M_user模型
+const M_user = requier('../models/m_user.js');
+
+
+// 渲染登录页
+exports.showSignin = (req,res) => {
     res.render('signin.html');
 };
 
-handleSignin = (req,res) => {
+
+
+
+// 处理登录表单的请求
+exports.handleSignin = (req,res) => {
+
     const  body = req.body;
-    const sqlstr = 'SELECT * FROM users WHERE email =?';
-    connection.query(sqlstr, body.email, (err, results) => {
+    M_user.checkEmail(body.email,(err,results) => {
+
         if (err) {
             return res.send ({
                 code:500,
                 message: err.message
             })
         }
+
         if (!results[0]) {
             return res.send ({
                 code: 1,
@@ -34,10 +37,12 @@ handleSignin = (req,res) => {
                 message: '密码不正确'
             })
         }
+
+        req.session.user = results[0];
+
         res.send({
             code:200,
             message: '可以登录了'
         })
-
     })
 }

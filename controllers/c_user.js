@@ -39,7 +39,7 @@ exports.handleSignin = (req,res) => {
             })
         }
 
-        // console.log(results[0])
+        console.log(results[0])
         req.session.user = results[0];
         
 

@@ -14,6 +14,8 @@ function checkEmail(email,callback) {
 }
 
 
+
+
 // 我们发现:
 // 要在c_user.js控制器中使用checkEmail里面数据库查询的结果
 // 要在c_user.js控制器中使用checkEmail里面异步操作的结果
